@@ -19,7 +19,7 @@ router.use(authUser);
 router.get("/notes", getAllNotes);
 router.post("/notes", createNote);
 router.put("/notes/:id", updateNote);
-router.put("/notes/:id/pinned", updateIsPinned);
+router.patch("/notes/:id", updateIsPinned);
 router.get("/notes/:id", getNoteById);
 router.delete("/notes/:id", deleteNote);
 router.get("/search", searchNote);
