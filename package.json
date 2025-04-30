@@ -4,15 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "node --watch index.js"
+    "start": "node --watch --env-file=.env server.js",
+    "test": "vitest",
+    "dev": "node --watch server.js"
   },
   "keywords": [],
   "author": "atichapre",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
-    "express": "^5.1.0"
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.0"
+  },
+  "devDependencies": {
+    "mongodb-memory-server": "^10.1.4",
+    "supertest": "^7.1.0",
+    "vitest": "^3.1.2"
   }
 }
