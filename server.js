@@ -2,10 +2,19 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import apiRoutes from "./api/routes.js";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+
+const corsOptions = {
+  origin: "https://notesapp-frontend-jsd-project.vercel.app",
+  methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT;
 

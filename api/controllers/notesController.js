@@ -60,19 +60,21 @@ export const createNote = async (req, res) => {
 };
 
 export const updateNote = async (req, res, next) => {
-  const { title, content } = req.body;
+  const { title, content, tags, isPinned } = req.body;
 
   try {
-    const updatedNote = await Note.findByIdAndUpdate(
-      req.params.id,
-      { title, content },
-      { new: true, runValidators: true }
-    );
+    const note = await Note.findById(req.params.id);
 
-    if (!updatedNote) {
+    if (!note) {
       return res.status(404).json({ message: "Note not found" });
     }
 
+    note.title = title;
+    note.content = content;
+    note.tags = tags || [];
+    note.isPinned = isPinned;
+
+    const updatedNote = await note.save();
     res.status(200).json(updatedNote);
   } catch (err) {
     next(err);

@@ -15,10 +15,28 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-export const registerUser = async (req, res) => {
-  const { fullName, email, password } = req.body;
+export const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
 
-  if (!fullName || !email || !password) {
+    if (!user) {
+      return res.status(404).json({ error: true, message: "User not found" });
+    }
+
+    res.json({ error: false, user }); // return full user or selected fields
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      message: "Failed to fetch user",
+      details: err.message,
+    });
+  }
+};
+
+export const registerUser = async (req, res) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
     return res.status(400).json({
       error: true,
       message: "All fields are required",
@@ -37,7 +55,7 @@ export const registerUser = async (req, res) => {
 
     // Create and save new user
     const user = new User({
-      fullName,
+      name,
       email,
       password,
     });
@@ -87,6 +105,7 @@ export const loginUser = async (req, res) => {
     res.json({
       error: false,
       message: "Login successful",
+      email,
       token,
     });
   } catch (err) {
