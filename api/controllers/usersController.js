@@ -23,7 +23,7 @@ export const getUserById = async (req, res) => {
       return res.status(404).json({ error: true, message: "User not found" });
     }
 
-    res.json({ error: false, user }); // return full user or selected fields
+    res.json({ error: false, user });
   } catch (err) {
     res.status(500).json({
       error: true,
@@ -116,3 +116,20 @@ export const loginUser = async (req, res) => {
     });
   }
 };
+
+// export const refreshToken = async (req, res) => {
+//   const {token} = req.body;
+//   const refreshToken = req.body;
+//   if (!token) {
+//     return res.status(401).json({
+//       error: true,
+//       message: "Unauthorized",
+//     });
+//   }
+
+//     if (!refreshToken.includes(token)) {
+//       return res.status(403).json({
+//         error: true,
+//         message: "Invalid refresh token"
+//       })}
+// jwt.verify(token, refreshToken);
